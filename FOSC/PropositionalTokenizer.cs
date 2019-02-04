@@ -59,6 +59,20 @@ namespace FOSC
                     _reader.Read();
                 }
 
+                // If c is a Left Bracket, add left bracket to tokens
+                else if (c == '(')
+                {
+                    tokens.Add(new LeftBracketToken());
+                    _reader.Read();
+                }
+
+                // If c is a Right Bracket, add right bracket to tokens
+                else if (c == ')')
+                {
+                    tokens.Add(new RightBracketToken());
+                    _reader.Read();
+                }
+
                 // Otherwise throw an exception
                 else
                     throw new Exception("Unkown character in expression: " + c);
