@@ -25,6 +25,21 @@
 
     }
 
+    public class PunctuationToken : Token
+    {
+
+    }
+
+    public class LeftBracketToken : PunctuationToken
+    {
+
+    }
+
+    public class RightBracketToken : PunctuationToken
+    {
+        
+    }
+
     public class PropVarsToken : Token
     {
 
