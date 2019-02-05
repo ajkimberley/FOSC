@@ -19,9 +19,35 @@ namespace FOSC
             _tokens = tokens.GetEnumerator();
         }
 
+        public bool Parse()
+        {
+            bool result = false;
+
+            while (_tokens.MoveNext())
+            {
+                result = ParseExpression();
+                if (result == false)
+                {
+                    return false;
+                }
+
+                if (_tokens.MoveNext())
+                {
+                    result = Parse();
+                }
+            }
+
+            return result;
+        }
+
         private bool ParseExpression()
         {
             var prop = ParseProp();
+            if (prop == false)
+            {
+                return false;
+            }
+
             if (!_tokens.MoveNext())
             {
                 return prop;
@@ -49,21 +75,6 @@ namespace FOSC
             {
                 return false;
             }
-        }
-
-        public bool Parse()
-        {
-            var result = false;
-            while (_tokens.MoveNext())
-            {
-                result = ParseExpression();
-
-                if (_tokens.MoveNext())
-                {
-                    result = Parse();
-                }
-            }
-            return result;
         }
     }
 }
