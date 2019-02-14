@@ -18,7 +18,7 @@ namespace FOSC
 
             PropositionalParser parser = new PropositionalParser(scanner.Scan(formula));
 
-            bool wff = parser.Parse();
+            bool wff = parser.ParseWff();
 
             if (wff == true)
             {
