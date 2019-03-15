@@ -1,5 +1,11 @@
-﻿namespace FOSC
+﻿namespace PLP
 {
+
+    /***** Propositional Grammar ****/
+    // This file declares a number of empty base and inherrited classes which are utilised by the tokenizer and the parser
+    // The purpose of these classes is to enable the creation of objects which represent the various elements of the grammar of propositional logic
+    // This creates a layer of abstraction from the string input which enables the enoding of heirachical representation
+
     public abstract class Token
     {
 
