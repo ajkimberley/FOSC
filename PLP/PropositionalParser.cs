@@ -11,8 +11,8 @@ namespace PLP
     // An alternative would be to switch from a recursive descent parser to a type of bottom-up parser
 
     /*****  Refactored BNR Grammar of Basic Propositional Calculus *****/
-    // <Wff>        ::= <Proposition> <Wff'>
-    // <Wff'>       ::= <Connective> <Wff> | null
+    // <Wff>        ::= '(' <Proposition> <Wff'>
+    // <Wff'>       ::= <Connective> <Wff> ')' | null
     // <proposition>::= 'P' | 'Q' | 'R'
     // <connective> ::= '&' | 'V' | '>'
 

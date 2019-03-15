@@ -5,7 +5,7 @@ using System.IO;
 namespace PLP
 {
     /***** BNR Grammar of Basic Propositional Calculus *****/
-    // <formula>        ::= <proposition> | (<formula> <connective> <formula>)
+    // <formula>        ::= '(' <formula> <connective> <formula> ')'
     // <proposition>    ::= 'P' | 'Q' | 'R'
     // <connective>     ::= '&' | 'V' | '>'
    
