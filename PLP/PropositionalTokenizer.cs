@@ -4,21 +4,29 @@ using System.IO;
 
 namespace PLP
 {
-    /***** BNR Grammar of Basic Propositional Calculus *****/
-    // <formula>        ::= '(' <formula> <connective> <formula> ')'
-    // <proposition>    ::= 'P' | 'Q' | 'R'
-    // <connective>     ::= '&' | 'V' | '>'
-   
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    // The Propositional Tokenizer class scans a string from left-to-right and classifies each of the characters within that string as an instance of its associated class
+    // Upon classifying a character as an instance of a class it adds an object of that class-type to a list
+    // This list is then utilised by the Propositonal Parser, which determines whether the list of objects constitutes a well-formed formula
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public class PropositionalTokenizer
-    
-        /***** Propositional Tokenizer *****/
-        // The Propositional Tokenizer class scans a string from left-to-right and classifies each of the characters within that string as an instance of its associated class
-        // Upon classifying a character as an instance of a class it adds an object of that class-type to a list
-        // This list is then utilised by the Propositonal Parser, which determines whether the list of objects constitutes a well-formed formula
-    
-    {
+    {   
+        // Initialises a string reader.
         private StringReader _reader;
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Scans a string argument and outputs a list of tokens which correspond to the string characters.
+        /// </summary>
+        /// <param name="expression">
+        /// A string passed in the by the user.
+        /// </param>
+        /// <returns>
+        /// An enumerable collection of tokens.
+        /// </returns>
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
         public IEnumerable<Token> Scan(string expression)
         {
             _reader = new StringReader(expression);
