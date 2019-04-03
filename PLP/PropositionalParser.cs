@@ -10,10 +10,12 @@ namespace PLP
     // Semanically, this is not ideal, as it severs the tight connection between syntax and semantics achieved by the original grammar
     // An alternative would be to switch from a recursive descent parser to a type of bottom-up parser
 
-    /*****  Refactored BNR Grammar of Basic Propositional Calculus *****/
-    // <Wff>        ::= <proposition> | '(' <wff> <conjunction> <wff> ')'
-    // <proposition>::= 'P' | 'Q' | 'R'
-    // <connective> ::= '&' | 'V' | '>'
+    /*****  BNR Grammar of Basic Propositional Calculus *****/
+    // <Wff>            ::= <atomic formula> | <complex formula>
+    // <atomic formula> ::= <proposition>
+    // <coplex formula> ::= '(' <wff> <onnective> <wff> ')'
+    // <proposition>    ::= 'P' | 'Q' | 'R'
+    // <connective>     ::= '&' | 'V' | '>'
 
     public class PropositionalParser
     {
@@ -30,72 +32,86 @@ namespace PLP
             _tokens.MoveNext();
         }
 
-        public bool ParseWff()
+        public bool Parse()
         {
-            bool result = false;
-
-            while (!(_tokens.Current is null))
+            if (ParseWff() & _tokens.Current is null)
             {
-                if (_tokens.Current is PropVarsToken)
-                {
-                    result = true;
-
-                    _tokens.MoveNext();
-
-                    if (!(_tokens.Current is PropVarsToken))
-                    {
-                        return result;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-
-                else if (_tokens.Current is LeftBracketToken)
-                {
-                    _tokens.MoveNext();
-
-                    if (ParseWff())
-                    {
-                        if (_tokens.Current is BinaryOperatorToken)
-                        {
-                            _tokens.MoveNext();
-                            if (ParseWff())
-                            {
-                                if (_tokens.Current is RightBracketToken)
-                                {
-                                    _tokens.MoveNext();
-                                    result = true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-
-            return result;
-
+            else
+            {
+                return false;
+            }
+        }
+        private bool ParseWff()
+        {
+            if (ParseAtomicFormula())
+            {
+                return true;
+            }
+            else if (ParseComplexFormula())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ParseAtomicFormula()
+        {
+            if (ParseProposition())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ParseComplexFormula()
+        {
+            if (_tokens.Current is LeftBracketToken)
+            {
+                _tokens.MoveNext();
+                if (ParseWff() & ParseConnective() & ParseWff())
+                {
+                    if (_tokens.Current is RightBracketToken)
+                    {
+                        _tokens.MoveNext();
+                        return true;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ParseProposition()
+        {
+            if (_tokens.Current is PropVarsToken)
+            {
+                _tokens.MoveNext();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool ParseConnective()
+        {
+            if (_tokens.Current is BinaryOperatorToken)
+            {
+                _tokens.MoveNext();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

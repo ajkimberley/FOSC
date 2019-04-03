@@ -8,6 +8,19 @@ namespace PLP
 {
     class Program
     {
+        ///////////////////////////////////////////////////////////////////////
+        /// Function: Main
+        /// 
+        /// <summary>
+        /// Main progam entry point
+        /// </summary>
+        /// <param name="args">
+        /// Command line parameters.
+        ///    args[0] is the program name as it appeared on the command line
+        ///    args[1..n] are the actual command line parameters
+        ///    Find out how many they are using args.Length()
+        /// </param>
+        ///////////////////////////////////////////////////////////////////////
         static void Main(string[] args)
         {
             Console.WriteLine("Enter formula: ");
@@ -16,9 +29,11 @@ namespace PLP
 
             PropositionalTokenizer scanner = new PropositionalTokenizer();
 
-            PropositionalParser parser = new PropositionalParser(scanner.Scan(formula));
+            IEnumerable<Token> tokenisedFormula = scanner.Scan(formula);
 
-            bool wff = parser.ParseWff();
+            PropositionalParser parser = new PropositionalParser(tokenisedFormula);
+
+            bool wff = parser.Parse();
 
             if (wff == true)
             {
