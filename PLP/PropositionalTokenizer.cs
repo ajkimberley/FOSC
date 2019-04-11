@@ -12,9 +12,7 @@ namespace PLP
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public class PropositionalTokenizer
-    {   
-        // Initialises a string reader.
-        private StringReader _reader;
+    {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -29,7 +27,8 @@ namespace PLP
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         public IEnumerable<Token> Scan(string expression)
         {
-            _reader = new StringReader(expression);
+            // Initialises a string reader
+            StringReader _reader = new StringReader(expression);
 
             var tokens = new List<Token>();
 
@@ -54,9 +53,13 @@ namespace PLP
                         break;
                     // If c is 'V', '&', or '>', add a binary operator token to tokens
                     case 'V':
+                        tokens.Add(new DisjunctionToken());
+                        break;
                     case '&':
+                        tokens.Add(new ConjunctionToken());
+                        break;
                     case '>':
-                        tokens.Add(new BinaryOperatorToken());
+                        tokens.Add(new ConditionalToken());
                         break;
                     // If c is '(', add a left bracket token to tokens
                     case '(':
@@ -68,7 +71,7 @@ namespace PLP
                         break;
                     default:
                         // Otherwise throw an exception
-                        throw new Exception("Unkown character in expression: " + c);
+                        throw new FormatException("Unkown character in expression: " + c);
                 }
                 
             }
