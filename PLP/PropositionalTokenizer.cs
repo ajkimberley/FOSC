@@ -6,9 +6,9 @@ namespace PLP
 {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
-    // The Propositional Tokenizer class scans a string from left-to-right and classifies each of the characters within that string as an instance of its associated class
-    // Upon classifying a character as an instance of a class it adds an object of that class-type to a list
-    // This list is then utilised by the Propositonal Parser, which determines whether the list of objects constitutes a well-formed formula
+    /// The Propositional Tokenizer class scans a string from left-to-right and classifies each of the characters within that string as an instance of its associated class
+    /// Upon classifying a character as an instance of a class it adds an object of that class-type to a list
+    /// This list is then utilised by the Propositonal Parser, which determines whether the list of objects constitutes a well-formed formula
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public class PropositionalTokenizer
